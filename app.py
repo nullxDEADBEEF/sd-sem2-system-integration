@@ -13,6 +13,7 @@ def greet(name="Stranger"):
 
 @route("/")
 def index():
-    return "Index";
+    return "Index"
+
 
 run(host="localhost", port=8080, debug=True, reloader=True)
