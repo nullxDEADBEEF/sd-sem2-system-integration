@@ -1,19 +1,15 @@
-from bottle import route, run, template, error
+from bottle import default_app, get, run, view
 
 
-@error(404)
-def error404(error):
-    return f"{error} Impossible. Perhaps the archives are incomplete."
+@get("/")
+@view("index")
+def _():
+    return
 
-
-@route("/hello/<name>")
-def greet(name="Stranger"):
-    return template("Hello {{name}}, how are you?", name=name)
-
-
-@route("/")
-def index():
-    return "Index"
-
-
-run(host="localhost", port=8080, debug=True, reloader=True)
+try:
+    # Production 
+    import production
+    application = default_app()
+except:
+    # Development
+    run(host="127.0.0.1", port=3333, debug=True, reloader=True, server="paste")
